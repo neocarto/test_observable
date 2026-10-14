@@ -1,0 +1,20 @@
+<div id="controls"></div>
+<div id="map"></div>
+
+<script type="module">
+  import {Runtime, Inspector}
+    from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@5/+esm";
+
+  import define from
+    "https://neocarto.github.io/test_observable/84fbe076ab1c8d28.js";
+
+  const runtime = new Runtime();
+
+  runtime.module(define, name => {
+    if (name === "cell 10")
+      return new Inspector(document.querySelector("#controls"));
+
+    if (name === "cell 5")
+      return new Inspector(document.querySelector("#map"));
+  });
+</script>
