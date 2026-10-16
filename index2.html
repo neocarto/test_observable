@@ -1,25 +1,14 @@
+<div>top</div>
 <div id="controls"></div>
 <div id="map"></div>
+<div>bottom</div>
 
 <script type="module">
-  import {Runtime} from
-    "https://cdn.jsdelivr.net/npm/@observablehq/runtime@6/+esm";
-
-  import {Inspector} from
-    "https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/+esm";
-
-  import define from
-    "https://neocarto.github.io/test_observable/my-notebook2.js";
-
-  const runtime = new Runtime();
-
-  runtime.module(define, name => {
-    if (name === "cell 10") {
-      return new Inspector(document.querySelector("#controls"));
-    }
-
-    if (name === "cell 5") {
-      return new Inspector(document.querySelector("#map"));
-    }
-  });
+  import { NotebookRuntime } from "https://cdn.jsdelivr.net/npm/@observablehq/notebook-kit@2/runtime/+esm";
+  import { Inspector } from "https://cdn.jsdelivr.net/npm/@observablehq/inspector@5/+esm";
+  import define from "https://neocarto.github.io/test_observable/my-notebook.js";
+  const runtime = new NotebookRuntime();
+  const module = runtime.runtime.module(define);
+  runtime.main.variable(new Inspector(controls)).import("cell 10", module);
+  runtime.main.variable(new Inspector(map)).import("cell 5", module);
 </script>
